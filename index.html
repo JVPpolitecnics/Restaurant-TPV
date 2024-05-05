@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="Menu.js"></script>
+    <script src="Item.js"></script>
+    <script src="ChosenItem.js"></script>
+</head>
+
+<body>
+    <div id="selectedItems" class="elevation-menu mdc-elevation--z18">
+        <h1>Selected Items</h1>
+        <h2>Drinks</h2>
+        <div id="drink">
+
+        </div>
+        <h2>Starters</h2>
+        <div id="starter">
+
+        </div>
+        <h2>Mains</h2>
+        <div id="dish">
+
+        </div>
+        <h2>Dessert</h2>
+        <div id="dessert">
+
+        </div>
+        <menu-carta></menu-carta>
+    </div>
+
+    <div id="drinksAvailable">
+        <h1>Drinks</h1>
+        <item-food class="elevation-demo-surface mdc-elevation--z18" name="Cocacola" type="drink"
+            price="2.50"></item-food>
+        <item-food class="elevation-demo-surface mdc-elevation--z18" name="Fanta" type="drink" price="2.50"></item-food>
+        <item-food class="elevation-demo-surface mdc-elevation--z18" name="Nestea" type="drink"
+            price="2.50"></item-food>
+    </div>
+    <div id="startersAvailable">
+        <h1>Starters</h1>
+        <item-food class="elevation-demo-surface mdc-elevation--z18" name="Chips" type="starter" price="5"></item-food>
+        <item-food class="elevation-demo-surface mdc-elevation--z18" name="Onion Rings" type="starter" price="5"
+            allergen-list='["beans"]'></item-food>
+        <item-food class="elevation-demo-surface mdc-elevation--z18" name="Popcorn Shrimp" type="starter"
+            price="5"></item-food>
+        <item-food class="elevation-demo-surface mdc-elevation--z18" name="Popcorn Chicken" type="starter" price="5"
+            allergen-list='["seafood", "shelfish", "beans"]'></item-food>
+    </div>
+    <div id="mainDishAvailable">
+        <h1>Main Dish</h1>
+        <item-food class="elevation-demo-surface mdc-elevation--z18" name="Burger" type="dish" price="10"></item-food>
+        <item-food class="elevation-demo-surface mdc-elevation--z18" name="Pizza" type="dish" price="11"></item-food>
+        <item-food class="elevation-demo-surface mdc-elevation--z18" name="Pasta" type="dish" price="8"></item-food>
+    </div>
+    <h1>Dessert</h1>
+    <item-food class="elevation-demo-surface mdc-elevation--z18" name="Cheese Cake" type="dessert"
+        price="8"></item-food>
+    <item-food class="elevation-demo-surface mdc-elevation--z18" name="Banoffe" type="dessert" price="8"></item-food>
+    <item-food class="elevation-demo-surface mdc-elevation--z18" name="Peach cobbler" type="dessert"
+        price="8"></item-food>
+
+    <style>
+        body {
+            background: #343436;
+            color: #dadae2;
+            font-family: monospace;
+        }
+
+        h1 {
+            margin: 1em 0;
+            border-bottom: 1px dashed;
+            padding-bottom: 1em;
+            font-weight: lighter;
+            text-align: center;
+            color: #dadae2;
+        }
+
+        .elevation-demo-container {
+            display: -ms-flexbox;
+            display: flex;
+            margin: auto;
+            -ms-flex: 1 1 auto;
+            flex: 1 1 auto;
+            -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+            -ms-flex-pack: justify;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        .elevation-demo-surface {
+            display: -ms-inline-flexbox;
+            display: inline-flex;
+            -ms-flex-pack: distribute;
+            justify-content: space-around;
+            min-height: 150px;
+            min-width: 200px;
+            margin: 15px;
+            -ms-flex-align: center;
+            align-items: center;
+            border-radius: 10%;
+        }
+
+        .elevation-demo-surface>h1 {
+            margin: 20px;
+            /* Adjust the margin value as needed */
+        }
+
+        .elevation-demo-surface>svg {
+            margin: 20px;
+            /* Adjust the margin value as needed */
+        }
+
+        .elevation-menu {
+            display: flexbox;
+
+            -ms-flex-pack: distribute;
+            justify-content: space-around;
+            min-height: 500px;
+            min-width: 600px;
+            margin: 15px;
+            -ms-flex-align: center;
+            align-items: center;
+            border-radius: 10%;
+        }
+
+        .mdc-elevation--z18 {
+            -webkit-box-shadow: 0px 9px 11px -5px rgba(0, 0, 0, 0.2), 0px 18px 28px 2px rgba(0, 0, 0, 0.14), 0px 7px 34px 6px rgba(0, 0, 0, 0.12);
+            box-shadow: 0px 9px 11px -5px rgba(0, 0, 0, 0.2), 0px 18px 28px 2px rgba(0, 0, 0, 0.14), 0px 7px 34px 6px rgba(0, 0, 0, 0.12);
+        }
+
+        /* Styles for the chosen-item element */
+        chosen-item {
+            padding: 10px;
+            margin: 10px;
+            width: 200px;
+            
+        }
+
+        /* Styles for the buttons */
+        chosen-item .increase,
+        chosen-item .decrease {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 30%;
+            padding: 5px 10px;
+            margin: 5px;
+            cursor: pointer;
+        }
+
+        chosen-item .increase:hover,
+        chosen-item .decrease:hover {
+            background-color: #0056b3;
+        }
+
+        /* Styles for the price */
+        chosen-item p {
+            margin: 5px 0;
+        }
+
+        /* Style for the name */
+        chosen-item p:first-child {
+            font-weight: bold;
+        }
+    </style>
+</body>
+
+</html>
