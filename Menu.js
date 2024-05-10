@@ -3,7 +3,7 @@ class Menu extends HTMLElement {
         super();
         this.attachShadow({ mode: "open" });
         this.name;
-        this.bill;
+        this.bill = 0;
         this.priceData = null;
         this.data = null;
     }
@@ -12,13 +12,22 @@ class Menu extends HTMLElement {
     handleEvent(event) {
         if (event.type === "user:data-message") {
             this.data = event.detail;
+            this.bill = parseFloat(this.bill) + parseFloat(this.data.price);
             console.log("recieved data:" + this.data)
             this.render();
+            this.renderPrice();
         }
         if (event.type === "user:pice-update") {
             this.priceData = event.detail;
+            this.bill = parseFloat(this.bill) + parseFloat(this.priceData.price);
             console.log("recieved price:" + this.priceData)
             this.renderPrice();
+        } 
+        if (event.type === "price") {
+            
+            console.log("recieved price:" + this.priceData)
+            console.log("PRICESSSS" + this.priceData)
+           
         }
     }
     
@@ -29,6 +38,7 @@ class Menu extends HTMLElement {
         
         document.addEventListener("user:data-message", this);
         document.addEventListener("user:pice-update", this);
+    
         this.render();
         
             //this.updateChosenItems();
@@ -50,7 +60,7 @@ class Menu extends HTMLElement {
         const priceElement = this.shadowRoot.querySelector('#price');
         if (priceElement) {
             console.log()
-            priceElement.textContent = this.priceData.price; // Update price content
+            priceElement.textContent = 'Totall bill: '+ this.bill+' €'; // Update price content
         }
     }
 

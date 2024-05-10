@@ -6,6 +6,7 @@ class ChosenItem extends HTMLElement {
         this.price;
         this.originalPrice;
         this.quantity;
+        this.calculatedPriceDifference;
     }
     static get observedAttributes() {
         return ['name', "price", "quantity"];
@@ -44,10 +45,11 @@ class ChosenItem extends HTMLElement {
     onIncrementButtonClick = () => {
         this.quantity++;
         this.price = this.originalPrice * this.quantity
+        this.calculatedPriceDifference = ((this.originalPrice * this.quantity)-(this.originalPrice * (this.quantity - 1)))
         this.connectedCallback();
 
         const messageEvent = new CustomEvent("user:pice-update", {
-            detail: { price: this.price },
+            detail: { price: this.calculatedPriceDifference},
             bubbles: true,
             composed: true
         });
@@ -59,8 +61,16 @@ class ChosenItem extends HTMLElement {
         if (this.quantity > 1) {
             this.quantity--;
             this.price = this.originalPrice * this.quantity
+            this.calculatedPriceDifference = ((this.originalPrice * (this.quantity+1))-(this.originalPrice * this.quantity))
             this.connectedCallback();
+            const messageEvent = new CustomEvent("user:pice-update", {
+                detail: { price: (-this.calculatedPriceDifference)},
+                bubbles: true,
+                composed: true
+            });
+            this.dispatchEvent(messageEvent);
         }
+        
 
     }
 
