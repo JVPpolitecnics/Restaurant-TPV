@@ -1,6 +1,7 @@
 class Item extends HTMLElement {
     constructor() {
         super();
+        this.attachShadow({ mode: "open" });
         this.name = '';
         this.type = '';
         this.price = '';
@@ -51,12 +52,13 @@ class Item extends HTMLElement {
     }
 
     connectedCallback() {
-       const lowerCaseType = this.type.toLocaleLowerCase();
-       console.log("this lower type:" +lowerCaseType);
+        const shadow = this.shadowRoot;
+        const lowerCaseType = this.type.toLocaleLowerCase();
+        console.log("this lower type:" + lowerCaseType);
         const selectedItemsDiv = document.querySelector(`#selectedItems #${lowerCaseType}`)
         const imageName = this.name.replace(/\s+/g, '_');
         const allergenSVGs = this.allergenSVGList.map(svg => `<object type="image/svg+xml" data="images/svg/${svg}"></object>`).join('');
-        this.innerHTML = `<h1>${this.name}</h1>
+        shadow.innerHTML = `<h1>${this.name}</h1>
         <p>${this.type}</p>
         <img src="images/${imageName}.png" alt="${this.name}" width="75" height="80">
         <h1>${this.price} €  </h1>
@@ -71,11 +73,22 @@ class Item extends HTMLElement {
             console.log('Name:', this.name);
             console.log('Type:', this.type);
             console.log('Price:', this.price);
+            const clickedPrice = this.price;
             this.newElement = `<chosen-item name="${this.name}" price="${this.price}" quantity="1"></chosen-item>`;
-            const tempElement = document.createElement('div');
-            tempElement.innerHTML = this.newElement;
-            const newElementNode = tempElement.firstChild;
-            selectedItemsDiv.appendChild(newElementNode);
+
+            const messageEvent = new CustomEvent("user:data-message", {
+                detail: { from: "Manz", name: this.name, price: this.price },
+                bubbles: true,
+                composed: true
+            });
+            this.dispatchEvent(messageEvent);
+
+            
+
+
+            //   console.log("THE" + messageEvent)
+            
+            console.log("HELP")
             console.log("selected item div:" + selectedItemsDiv)
             this.style.border = '6px solid green';
 
