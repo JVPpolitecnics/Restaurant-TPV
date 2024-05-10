@@ -1,6 +1,7 @@
 class ChosenItem extends HTMLElement {
     constructor() {
         super();
+        this.attachShadow({ mode: "open" });
         this.name;
         this.price;
         this.originalPrice;
@@ -25,15 +26,15 @@ class ChosenItem extends HTMLElement {
         }
     }
     connectedCallback() {
-
-        this.innerHTML = `<div> <br><p>${this.name}</p>
+        const shadow = this.shadowRoot;
+        shadow.innerHTML = `<div> <br><p>${this.name}</p>
         <button class="increase">+</button>
         <p>${this.quantity}</p>
         <button class="decrease">-</button>
     <p>${this.price} €</p>
     </div>`;
-        const increaseButton = this.querySelector('.increase');
-        const decreaseButton = this.querySelector('.decrease');
+        const increaseButton = shadow.querySelector('.increase');
+        const decreaseButton = shadow.querySelector('.decrease');
 
         increaseButton.addEventListener("click", this.onIncrementButtonClick);
         decreaseButton.addEventListener("click", this.onDecreaseButtonClick);
@@ -44,6 +45,13 @@ class ChosenItem extends HTMLElement {
         this.quantity++;
         this.price = this.originalPrice * this.quantity
         this.connectedCallback();
+
+        const messageEvent = new CustomEvent("user:pice-update", {
+            detail: { price: this.price },
+            bubbles: true,
+            composed: true
+        });
+        this.dispatchEvent(messageEvent);
 
     }
 
